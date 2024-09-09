@@ -12,6 +12,8 @@ const { date } = require("joi");
 const loginValidate = require("../validator/loginValidator");
 require("dotenv").config()
 
+
+// create
 exports.signup = async (req, res) => {
     try {
         // this line validate the data in authValidator file 
@@ -121,6 +123,7 @@ exports.verifyOtp = async(req, res)=>{
     }
 }
 
+// update
 exports.completeProfile = async (req,res)=>{
     try {
 
@@ -175,6 +178,7 @@ exports.completeProfile = async (req,res)=>{
     }
 }
 
+// read
 exports.login = async (req,res)=>{
     try {
 
@@ -191,9 +195,12 @@ exports.login = async (req,res)=>{
             const checkPassword = await bcrypt.compare(password , checkUser.password )
             if(checkPassword){
                 if (checkUser.isVerify && checkUser.isComplete) {
+                    const token = JWT.sign({ _id : checkUser._id }, process.env.SCERET_KEY, {expiresIn : "2h"})  
                     res.send({
                         message:"user Login success",
-                        data:checkUser
+                        data:checkUser,
+                        userType : checkUser.userType,
+                        token
                     })
                 } else if (checkUser.isVerify == false) {
                     res.send({

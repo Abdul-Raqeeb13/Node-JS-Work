@@ -45,6 +45,12 @@ exports.createUser = (obj) => authModel.create(obj)
 // check if user exist with the email user enter .check already exist email
 exports.findUser = (query) => authModel.findOne(query)
 
+// check if user exist with the email user enter .check already exist email
+exports.findAllUsers = (query) => authModel.find(query)
+
 // find the user and update
 exports.findUserAndUpdate = (id,query) => authModel.findOneAndUpdate(id,query)
+
+// delete the user
+exports.findAndDelete = (id) => authModel.findOneAndDelete(id)
 

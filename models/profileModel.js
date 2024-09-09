@@ -33,3 +33,7 @@ const profileSchema = mongoose.Schema({
 const profileModel = model('profile',profileSchema)
 
 exports.createUserProfile = (obj) => profileModel.create(obj) 
+
+// delete profile
+
+exports.deleteProfile = (id) => profileModel.findOneAndDelete(id)
